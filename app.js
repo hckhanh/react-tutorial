@@ -6,7 +6,7 @@ app.use('/', express.static('.'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-process.env.NODE_ENV = 'production';
+// process.env.NODE_ENV = 'production';
 
 var data = [
     {id: 1, author: "Pete Hunt", text: "This is one comment"},

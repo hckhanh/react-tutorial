@@ -1,3 +1,7 @@
+import Comment from './comment';
+import CommentList from './comment_list'
+import CommentForm from './comment_form'
+
 // - CommentBox
 //   - CommentList
 //     - Comment
@@ -37,101 +41,6 @@ class CommentBox extends React.Component {
                 <h1>Comment Box</h1>
                 <CommentList data={this.state.data}/>
                 <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-            </div>
-        );
-    }
-
-}
-
-class CommentForm extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            author: '',
-            text: ''
-        }
-        this.handleAuthorChange = this.handleAuthorChange.bind(this);
-        this.handleTextChange = this.handleTextChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleAuthorChange(e) {
-        this.setState({author: e.target.value});
-    }
-
-    handleTextChange(e) {
-        this.setState({text: e.target.value});
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        $.post('/api/comments', {
-            author: this.state.author,
-            text: this.state.text
-        })
-        .done(res => {
-            if (res.code != 200) return;
-
-            this.props.onCommentSubmit({
-                id: res.id,
-                author: this.state.author,
-                text: this.state.text
-            });
-
-            this.setState({
-                author: '',
-                text: ''
-            });
-        });
-    }
-
-    render() {
-        return (
-            <form className="commentForm" onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Your name" value={this.state.author} onChange={this.handleAuthorChange} />
-                <input type="text" placeholder="Say something..." value={this.state.text} onChange={this.handleTextChange} />
-                <input type="submit" value="Post" />
-            </form>
-        );
-    }
-
-}
-
-class CommentList extends React.Component {
-
-    render() {
-        console.log(this);
-        var commentNodes = this.props.data.map(comment => {
-            return (
-                <Comment author={comment.author} key={comment.id}>{comment.text}</Comment>
-            );
-        });
-        return (
-            <div className="commentList">
-                {commentNodes}
-            </div>
-        );
-    }
-
-}
-
-class Comment extends React.Component {
-
-    rawMarkup() {
-        return {
-            __html: marked(this.props.children.toString(), {sanitize: true})
-        };
-    }
-
-    render() {
-        return (
-            <div className="comment">
-                <h2 className="commentAuthor">
-                    {this.props.author}
-                </h2>
-                <span dangerouslySetInnerHTML={this.rawMarkup()} />
             </div>
         );
     }
