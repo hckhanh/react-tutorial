@@ -43,7 +43,6 @@
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
-    "lite-server": "^2.0.1",
     "concurrently": "^1.0.0"
   }
 }
