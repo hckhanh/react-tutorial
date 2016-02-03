@@ -11,16 +11,13 @@ class CommentBox extends React.Component {
             data: []
         }
 
-        this.getComments = this.getComments.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
         this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     }
 
     getComments() {
-        var _this = this;
         $.get(this.props.url)
         .done(data => {
-            _this.setState({data: data});
+            this.setState({data: data});
         });
     }
 
@@ -54,7 +51,6 @@ class CommentForm extends React.Component {
             author: '',
             text: ''
         }
-
         this.handleAuthorChange = this.handleAuthorChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,20 +65,19 @@ class CommentForm extends React.Component {
     }
 
     handleSubmit(e) {
-        var _this = this;
         e.preventDefault();
 
         $.post('/api/comments', {
-            author: _this.state.author,
-            text: _this.state.text
+            author: this.state.author,
+            text: this.state.text
         })
         .done(res => {
             if (res.code != 200) return;
 
-            _this.props.onCommentSubmit({
+            this.props.onCommentSubmit({
                 id: res.id,
-                author: _this.state.author,
-                text: _this.state.text
+                author: this.state.author,
+                text: this.state.text
             });
         });
     }
@@ -135,7 +130,7 @@ class Comment extends React.Component {
             </div>
         );
     }
-    
+
 }
 
 ReactDOM.render(
