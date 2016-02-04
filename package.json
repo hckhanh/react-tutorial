@@ -4,10 +4,7 @@
   "description": "Follow the tutorial of React to learn React :3",
   "main": "app.js",
   "scripts": {
-    "build:w": "gulp",
-    "minify": "minify js/",
-    "clean": "rm -rf js/",
-    "start": "concurrent \"npm run build:w\" \"node .\" ",
+    "start": "gulp",
     "release": "gulp release && node ."
   },
   "babel": {
@@ -44,6 +41,8 @@
     "browserify": "^13.0.0",
     "concurrently": "^1.0.0",
     "gulp": "^3.9.0",
+    "gulp-exec": "^2.1.2",
+    "gulp-nodemon": "^2.0.6",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^1.5.1",
     "minifier": "^0.7.1",
